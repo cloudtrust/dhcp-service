@@ -1,0 +1,15 @@
+[Unit]
+Description=IPv4 DHCP server
+Wants=network.target
+After=network.target
+
+[Service]
+Type=forking
+EnvironmentFile=/etc/sysconfig/dhcpd
+PIDFile=/run/dhcpd4.pid
+ExecStart=/usr/sbin/dhcpd -4 -q -pf /run/dhcpd4.pid ${IFACE}
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target
+
